@@ -43,42 +43,32 @@ db
 
 // routes
 app.get('/', (req, res) => {
-
   let search = req.query.job;
-  let query  = '%'+search+'%'; // PH -> PHP, Word -> Wordpress, press -> Wordpress
+  let query  = '%' + search + '%'; // PH -> PHP, Word -> Wordpress, press -> Wordpress
 
-  if(!search) {
-    Job.findAll({order: [
-      ['createdAt', 'DESC']
-    ]})
+  if (!search) {
+    Job.findAll({
+      order: [["id", "DESC"]] // Ordena pela coluna `id`, que existe na tabela
+    })
     .then(jobs => {
-  
       res.render('index', {
         jobs
       });
-  
     })
     .catch(err => console.log(err));
   } else {
     Job.findAll({
-      where: {title: {[Op.like]: query}},
-      order: [
-        ['createdAt', 'DESC']
-    ]})
+      where: { title: { [Op.like]: query } },
+      order: [["id", "DESC"]] // Substituído `createdAt` por `id`
+    })
     .then(jobs => {
       console.log(search);
-      console.log(search);
-  
       res.render('index', {
         jobs, search
       });
-  
     })
     .catch(err => console.log(err));
   }
-
-  
 });
-
 // jobs routes
 app.use('/jobs', require('./routes/jobs'));

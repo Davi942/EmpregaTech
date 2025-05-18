@@ -1,17 +1,19 @@
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
-    "postgres", // Nome do banco de dados (geralmente "postgres" no Supabase)
-    "postgres", // Usuário do banco (geralmente "postgres" no Supabase)
-    "[Doris123!]", // Senha do banco de dados
+    "postgres", // Nome do banco de dados
+    "postgres.gudngldxnlftrfqndoor", // Usuário do banco (com o identificador do pooler)
+    "Doris123!@#clara", // Senha do banco
     {
-        host: "db.gudngldxnlftrfqndoor.supabase.co", // Host fornecido pelo Supabase
-        dialect: "postgres", // Dialeto para PostgreSQL
-        port: 5432, // Porta padrão do PostgreSQL
-        logging: false, // Desativa logs de SQL (opcional)
-        ssl: {
-            require: true, // Exige SSL para conexão segura
-            rejectUnauthorized: false, // Permite certificados autoassinados
+        host: "aws-0-sa-east-1.pooler.supabase.com", // Host do Pooler de Transações
+        dialect: "postgres",
+        port: 6543, // Porta do Pooler de Transações
+        logging: false,
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false, // Permite certificados autoassinados
+            },
         },
     }
 );
